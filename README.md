@@ -1,46 +1,82 @@
-# spring2022demo
-#Preposal
+#spring 2022 demo
+import re
+import random
 
-Some ideas I have: wordle spinoff, a discord bot that pulls music/ videos from youtube and displays them in chat, or a fun and interesting card game
-I plan on working alone
-I have no questions at this moment
 
-# Proposal
+preposal = open("preposal.md", "r")
+proposal = open("proposal.md", "r")
+status = open("status.md", "r")
+#print(preposal.read())
+#print(proposal.read())
+#print(status.read())
 
-## What will (likely) be the title of your project?
 
-Scordle
+data = open("words.txt", "r")
+text = data.readlines()
+fiveWords = []
+for line in text:
+    word = line.split()
+    if word[0].islower() and len(line)==6:
+        fiveWords.append(word)
 
-## In just a sentence or two, summarize your project. (E.g., "A website that lets you buy and sell stocks.")
+def gameWord():
+    randomWord = random.choice(fiveWords)
+    secretWord= str(randomWord)[2:7]
+    return(secretWord)
 
-A wordle clone that keeps track and assigns different point value determined by row and whether letter is in correct position or not.
+   
 
-## In a paragraph or more, detail your project. What will your software do? What features will it have? How will it be executed?
 
-I plan on creating the guessing game known as wordle but with a twist. Different point value are assigned, the quicker you guess the word, the more points will be given. To elaborate, a correct letter guess in the first guess will result in more points than a correct letter guess in the third row, same goes for a correct letter guess in the wrong location. Another feature will track the highscore to encourage the user to keep playing to beat the score. Another feature will ask the user if they plan to play again. 
+def game():
+    secretWord = gameWord()
+    guesses= 0
+    firstLetter = secretWord[0]
+    secondLetter = secretWord[1]
+    thirdLetter = secretWord[2]
+    fourthLetter = secretWord[3]
+    fifthLetter = secretWord[4]
+    winorlose = ""
+    checker = True
+    while guesses<6:
+        gameBoard = ["incorrect","incorrect","incorrect","incorrect","incorrect"]
+        playerResponse = input("Enter word ")
+        guesses+=1
+        if playerResponse[0] in secretWord:
+            gameBoard[0] = "in word"
+            if playerResponse[0] == firstLetter:
+                gameBoard[0] = "correct"
+        if playerResponse[1] in secretWord:
+            gameBoard[1] = "in word"
+            if playerResponse[1] == secondLetter:
+                gameBoard[1] = "correct"
+        if playerResponse[2] in secretWord:
+            gameBoard[2] = "in word"
+            if playerResponse[2] == thirdLetter:
+                gameBoard[2] = "correct"
+        if playerResponse[3] in secretWord:
+            gameBoard[3] = "in word"
+            if playerResponse[3] == fourthLetter:
+                gameBoard[3] = "correct"
+        if playerResponse[4] in secretWord:
+            gameBoard[4] = "in word"
+            if playerResponse[4] == fifthLetter:
+                gameBoard[4] = "correct"
+            
 
-## If planning to combine 1051's final project with another course's final project, with which other course? And which aspect(s) of your proposed project would relate to 1051, and which aspect(s) would relate to the other course?
+        
+        if gameBoard[0]=="correct" and gameBoard[1]=="correct" and gameBoard[2]=="correct" and gameBoard[3]=="correct" and gameBoard[4]=="correct":
+            guesses+= 5
+            winorlose = "Win!"
+        else:
+            winorlose = "Lost!"
+        print(gameBoard)
+        
+    return (winorlose,"Correct Word was ", secretWord)
+print(game())
 
-TODO, if applicable
-
-## If planning to collaborate with 1 or 2 classmates for the final project, list their names, email addresses, and the names of their assigned TAs below.
-
-TODO, if applicable
-
-## In the world of software, most everything takes longer to implement than you expect. And so it's not uncommon to accomplish less in a fixed amount of time than you hope.
-
-### In a sentence (or list of features), define a GOOD outcome for your final project. I.e., what WILL you accomplish no matter what?
-
-A good outcome for my project would be to create the game wordle and be able to track which row the word was fully guessed on. 
-
-### In a sentence (or list of features), define a BETTER outcome for your final project. I.e., what do you THINK you can accomplish before the final project's deadline?
-
-A better outcome would be where I can track where the letters were correctly guessed on and what row and assign different point values depending on row.
-
-### In a sentence (or list of features), define a BEST outcome for your final project. I.e., what do you HOPE to accomplish before the final project's deadline?
-
-The best possible outcome would be to create what I said above, but to be able to have it track the scores across multiple games until the user fails to guess the word and loses.
-
-## In a paragraph or more, outline your next steps. What new skills will you need to acquire? What topics will you need to research? If working with one of two classmates, who will do what?
-
-I would like to dive more into dictionaries to assign the different point values to the different rows and if the letter was fully correct in the right spot. I also need to look into how to pick the random word the user is playing. I'l definitely have to research into how other people created wordle and build off their ideas to create my own version, Scordle. 
+def scoreBoard():
+    pass
+    
+        
+        
+        
