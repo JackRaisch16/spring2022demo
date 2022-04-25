@@ -1,3 +1,6 @@
+#Jackson Raisch
+#1st year, Graduation: 2025
+#Scordle
 #spring 2022 demo
 import re
 import random
@@ -9,8 +12,12 @@ print(preposal.read())
 print(proposal.read())
 print(status.read())
 """
+#Opens file with all english words
 data = open("words.txt", "r")
 text = data.readlines()
+
+
+#Creates a list of five letter words applicable for wordle from list of words
 fiveWords = []
 for line in text:
     word = line.split()
@@ -18,13 +25,17 @@ for line in text:
         word = str(word)[2:7]
         fiveWords.append(word)
 
+
+#Selects random word from five words list
 def gameWord():
     secretWord = random.choice(fiveWords)
     return(secretWord)
 
     
+#Runs wordle game until win or loss
 def game():
     secretWord = gameWord()
+    #print(secretWord)
     guesses= 0
     remLetters = list("abcdefghijklmnopqrstuvwxyz")
     firstLetter = secretWord[0]
@@ -86,10 +97,12 @@ def game():
             winorlose = "Win!"
         else:
             winorlose = "Lost!"
-            print(gameBoard, "Remaining Letters: " ,remLetters)
+            print(gameBoard)
+            print("Remaining Letters: " ,remLetters)
     print(winorlose, "Correct Word was: ", secretWord)
     return(winorlose)
 
+#Tracks multiple games until user decides to stop playing
 def multGames():
     done = False
     wins = 0
